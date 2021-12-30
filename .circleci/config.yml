@@ -5,14 +5,13 @@ commands:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
     parameters:
       stack-name:
-        to:
-          type: string  
+        type: string  
     steps:
       - run:
           name: Destroy environments
           when: on_fail
           command: |
-            aws cloudformation delete-stack --stack-name <<stack-name.to>>
+            aws cloudformation delete-stack --stack-name <<parameters.stack-name>>
 
   revert-migrations:
     description: Revert the last migration if successfully run in the current workflow.

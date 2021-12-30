@@ -164,9 +164,9 @@ jobs:
           paths:
             - project/.circleci/ansible/inventory.txt
       - destroy-environment:
-          to: udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
+          stack-name: udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
       - destroy-environment:
-          to: udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}    
+          stack-name: udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}    
 
 #   configure-infrastructure:
 #     docker:

@@ -179,7 +179,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            sudo apt install unzip
+            apt install unzip
             apk add --update ansible
             yum install -y tar gzip
             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"

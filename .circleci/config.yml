@@ -246,14 +246,6 @@ jobs:
       - restore_cache:
           keys: [frontend-build]
       - run:
-          name: Install Python
-          command: |
-            yum install python3
-      - run:
-          name: Install Ansible
-          command: |
-            apk add --update ansible
-      - run:
           name: Install npm & nodejs
           command: |
             apk add --update nodejs npm

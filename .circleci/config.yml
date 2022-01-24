@@ -248,7 +248,7 @@ jobs:
       - run:
           name: Install Python
           command: |
-            sudo yum install python3
+            yum install python3
       - run:
           name: Install Ansible
           command: |

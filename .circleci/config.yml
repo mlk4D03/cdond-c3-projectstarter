@@ -296,6 +296,10 @@ jobs:
       - attach_workspace:
           at: ~/
       - run:
+          name: Install Nodejs Npm
+          command: |
+            apk add --update nodejs npm
+      - run:
           name: Install dependencies
           command: |
             apk add unzip tar gzip curl

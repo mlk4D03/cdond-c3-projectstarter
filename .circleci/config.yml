@@ -246,9 +246,17 @@ jobs:
       - restore_cache:
           keys: [frontend-build]
       - run:
-          name: Install tar,gzipnnodejs and npm
+          name: Install tar,gzip
           command: |
-            yum install -y tar gzip nodejs npm
+            yum install -y tar gzip
+      - run: 
+          name: Install nodejs
+          command: |
+            yum install -y nodejs
+      - run:
+          name: Install npm
+          command: |
+            yum install -y npm
       - run:
           name: Get backend url
           command: |

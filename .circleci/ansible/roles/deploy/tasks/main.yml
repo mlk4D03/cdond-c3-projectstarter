@@ -1,0 +1,21 @@
+---
+
+- name: extract artifact.tar
+  become: yes
+  unarchive:
+    src: ../../../../backend/artifact.tar.gz
+    dest: /app/udapeople
+
+- name: Install packages based on package.json.
+  npm:
+    path: app/udapeople
+
+- name: "stop"
+    become: true
+    command: pm2 stop default
+
+- name: Change the working directory to app/udapeople and start the app
+  command: pm2 start npm -- start
+  become: yes
+  args:
+    chdir: app/udapeople

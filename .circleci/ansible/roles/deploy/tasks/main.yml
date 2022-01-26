@@ -3,7 +3,7 @@
 - name: extract artifact.tar
   become: yes
   unarchive:
-    src: ../../backend/artifact.tar.gz
+    src: artifact.tar.gz
     dest: /app/udapeople
 
 - name: Install packages based on package.json.

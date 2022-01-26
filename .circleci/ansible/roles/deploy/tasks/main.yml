@@ -11,8 +11,8 @@
     path: app/udapeople/backend
 
 - name: "stop"
-    become: true
-    command: pm2 stop default
+  become: true
+  command: pm2 stop default
 
 - name: Change the working directory to app/udapeople and start the app
   command: pm2 start npm -- start

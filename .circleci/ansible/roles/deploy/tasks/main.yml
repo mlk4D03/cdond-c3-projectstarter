@@ -5,6 +5,7 @@
   copy:
     src: ~/project/artifact.tar.gz
     dest: ~/artifact.tar.gz
+    mode: 0400
 
 - name: extract artifact.tar
   become: yes

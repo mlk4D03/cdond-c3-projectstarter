@@ -13,6 +13,7 @@
     src: /home/ubuntu/artifact.tar.gz
     dest: /home/ubuntu
     remote_src: yes
+    mode: 0400
 
 - name: Install packages based on package.json.
   npm:

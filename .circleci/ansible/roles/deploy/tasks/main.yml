@@ -11,19 +11,21 @@
   become: yes
   unarchive:
     src: /home/ubuntu/artifact.tar.gz
-    dest: /app/udapeople
+    dest: /home/ubuntu
     remote_src: yes
 
 - name: Install packages based on package.json.
   npm:
-    path: /app/udapeople/backend
+    path: /home/ubuntu/backend
 
 - name: "stop"
   become: true
   command: pm2 stop default
+  args:
+    chdir: /home/ubuntu/backend
 
 - name: Change the working directory to app/udapeople and start the app
   command: pm2 start npm -- start
   become: yes
   args:
-    chdir: app/udapeople/backend
+    chdir: /home/ubuntu/backend

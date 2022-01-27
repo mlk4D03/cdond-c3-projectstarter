@@ -4,29 +4,29 @@
   become: yes
   copy:
     src: ~/project/artifact.tar.gz
-    dest: /home/ubuntu/artifact.tar.gz
+    dest: ~/artifact.tar.gz
     mode: 0400
 
 - name: extract artifact.tar
   become: yes
   unarchive:
-    src: /home/ubuntu/artifact.tar.gz
-    dest: /home/ubuntu
+    src: ~/artifact.tar.gz
+    dest: ~/
     remote_src: yes
     mode: 0400
 
 - name: Install packages based on package.json.
   npm:
-    path: /home/ubuntu/backend
+    path: ~/backend
 
 - name: "stop"
   become: true
   command: pm2 stop default
   args:
-    chdir: /home/ubuntu/backend
+    chdir: ~/backend
 
 - name: Change the working directory to app/udapeople and start the app
   command: pm2 start npm -- start
   become: yes
   args:
-    chdir: /home/ubuntu/backend
+    chdir: ~/backend

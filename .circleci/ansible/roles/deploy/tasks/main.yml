@@ -8,16 +8,16 @@
     mode: 0400
 
 
-- name: extract artifact
-  become: yes
-  shell: tar -vxf artifact.tar.gz
-# - name: extract artifact.tar
+# - name: extract artifact
 #   become: yes
-#   unarchive:
-#     src: ~/artifact.tar.gz
-#     dest: ~/
-#     remote_src: yes
-#     mode: 0400
+#   shell: tar -vxf artifact.tar.gz
+- name: extract artifact.tar
+  become: yes
+  unarchive:
+    src: ~/artifact.tar.gz
+    dest: ~/
+    remote_src: yes
+    mode: 0400
 
 - name: Install packages based on package.json.
   npm:
@@ -27,10 +27,10 @@
   become: true
   command: pm2 stop default
   args:
-    chdir: ~/backend
+    chdir: /home/ubuntu/backend
 
 - name: Change the working directory to app/udapeople and start the app
   command: pm2 start npm -- start
   become: yes
   args:
-    chdir: ~/backend
+    chdir: /home/ubuntu/backend

@@ -23,18 +23,6 @@
   npm:
     path: ~/backend
 
-# - name: "stop"
-#   become: true
-#   command: pm2 stop default
-#   args:
-#     chdir: /home/ubuntu/backend
-
-# - name: Change the working directory to app/udapeople and start the app
-#   command: pm2 start npm -- start
-#   become: yes
-#   args:
-#     chdir: /home/ubuntu/backend
-
 - name: start app
   become: yes
   shell: |

@@ -4,18 +4,19 @@
   become: yes
   copy:
     src: ~/project/artifact.tar.gz
-    dest: ~/artifact.tar.gz
+    dest: /home/ubuntu/artifact.tar.gz
     mode: 0400
 
 - name: extract artifact.tar
   become: yes
   unarchive:
-    src: ~/artifact.tar.gz
+    src: /home/ubuntu/artifact.tar.gz
     dest: /app/udapeople
+    remote_src: yes
 
 - name: Install packages based on package.json.
   npm:
-    path: app/udapeople/backend
+    path: /app/udapeople/backend
 
 - name: "stop"
   become: true
@@ -25,4 +26,4 @@
   command: pm2 start npm -- start
   become: yes
   args:
-    chdir: app/udapeople
+    chdir: app/udapeople/backend

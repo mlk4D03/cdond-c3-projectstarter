@@ -8,11 +8,11 @@
     mode: 0755
 
 
-- name: unzip backend directory
-  become: yes
-  shell: |
-    cd /home/ubuntu
-    tar -vxf artifact.tar.gz
+# - name: unzip backend directory
+#   become: yes
+#   shell: |
+#     cd /home/ubuntu
+#     tar -vxf artifact.tar.gz
 
 # - name: extract artifact.tar
 #   become: yes
@@ -22,13 +22,13 @@
 #     remote_src: yes
 #     mode: 0755
 
-- name: Install packages based on package.json.
-  npm:
-    path: ~/backend
+# - name: Install packages based on package.json.
+#   npm:
+#     path: ~/backend
 
-- name: start app
-  become: yes
-  shell: |
-    cd backend
-    pm2 stop default
-    pm2 start npm -- start
+# - name: start app
+#   become: yes
+#   shell: |
+#     cd backend
+#     pm2 stop default
+#     pm2 start npm -- start

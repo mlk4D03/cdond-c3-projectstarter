@@ -3,9 +3,9 @@
 - name: copy artifact
   become: yes
   copy:
-    src: ~/project/artifact.tar.gz
+    src: artifact.tar.gz
     dest: ~/artifact.tar.gz
-    mode: 0400
+    mode: 0755
 
 
 # - name: extract artifact
@@ -17,7 +17,7 @@
     src: ~/artifact.tar.gz
     dest: ~/
     remote_src: yes
-    mode: 0400
+    mode: 0755
 
 - name: Install packages based on package.json.
   npm:

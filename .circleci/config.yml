@@ -15,26 +15,24 @@ commands:
               aws s3 rm s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
             fi
             aws cloudformation delete-stack --stack-name <<parameters.stack-name>>
-
   revert-migrations:
-    description: Revert the last migration if successfully run in the current workflow.
+    description: Revert the last migration
     parameters:
-      # Add parameter here
-      to:
-        type: string     
+      workflow_id:
+          type: string      
     steps:
       - run:
           name: Revert migrations
-          # Add when this will run
+          when: on_fail
           command: |
-            # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-            SUCCESS = 1
-            if(( $SUCCESS==1 )); 
+            # Example: kvdb.io
+            SUCCESS=$(curl --insecure  https://kvdb.io/NQJxFvyp2wvfXScviXXa3G/migration_<<parameters.workflow_id>>)
+            # Logic for reverting the database state
+            if (( $SUCCESS == 1 ));
             then
-            #  cd ~/project/backend
-            #  npm install
-            #  Add revert code here. You can find this in the Getting Started section.
-              exit 1
+                cd ~/project/backend
+                npm install
+                npm run migration:revert
             fi
             
 jobs:
@@ -241,6 +239,8 @@ jobs:
           stack-name: udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
       - destroy-environment:
           stack-name: udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}    
+      - revert-migrations:
+          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
 
   deploy-frontend:
     docker:
@@ -282,7 +282,9 @@ jobs:
       - destroy-environment:
           stack-name: udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
       - destroy-environment:
-          stack-name: udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}      
+          stack-name: udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
+      - revert-migrations:
+          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}      
                     
   deploy-backend:
     docker:
@@ -337,7 +339,9 @@ jobs:
       - destroy-environment:
           stack-name: udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
       - destroy-environment:
-          stack-name: udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} 
+          stack-name: udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
+      - revert-migrations:
+          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7} 
 
   smoke-test:
     docker:
@@ -360,7 +364,7 @@ jobs:
             echo "${API_URL}"
             if curl "${API_URL}/api/status" | grep "ok"
             then
-              return 0
+              return 1
             else
               return 1
             fi
@@ -371,15 +375,16 @@ jobs:
             echo "${URL}" 
             if curl -s ${URL} | grep "Welcome"
             then
-              # Change this to 0 after the job fails
-              return 1
+              return 0
             else
               return 1
             fi
       - destroy-environment:
           stack-name: udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
       - destroy-environment:
-          stack-name: udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}  
+          stack-name: udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
+      - revert-migrations:
+          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}   
 
 #   cloudfront-update:
 #     docker:

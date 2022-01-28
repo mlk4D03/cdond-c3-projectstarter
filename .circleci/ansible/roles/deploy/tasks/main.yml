@@ -3,8 +3,8 @@
 - name: copy artifact
   become: yes
   copy:
-    src: artifact.tar.gz
-    dest: ~/artifact.tar.gz
+    src: ~/project/artifact.tar.gz
+    dest: ~/
     mode: 0755
 
 

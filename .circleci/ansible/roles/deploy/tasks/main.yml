@@ -11,7 +11,7 @@
 - name: unzip backend directory
   become: yes
   shell: |
-    cd /home/ubuntu/backend
+    cd /home/ubuntu
     tar -vxf artifact.tar.gz
 
 # - name: extract artifact.tar

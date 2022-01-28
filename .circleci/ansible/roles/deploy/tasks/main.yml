@@ -8,16 +8,19 @@
     mode: 0755
 
 
-# - name: extract artifact
-#   become: yes
-#   shell: tar -vxf artifact.tar.gz
-- name: extract artifact.tar
+- name: unzip backend directory
   become: yes
-  unarchive:
-    src: ~/artifact.tar.gz
-    dest: ~/
-    remote_src: yes
-    mode: 0755
+  shell: |
+    cd /home/ubuntu/backend
+    tar -vxf artifact.tar.gz
+
+# - name: extract artifact.tar
+#   become: yes
+#   unarchive:
+#     src: ~/artifact.tar.gz
+#     dest: ~/
+#     remote_src: yes
+#     mode: 0755
 
 - name: Install packages based on package.json.
   npm:

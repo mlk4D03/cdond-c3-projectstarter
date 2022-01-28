@@ -316,6 +316,7 @@ jobs:
             cd backend
             npm i
             npm run build
+            cp package* ./dist
             cd ..
             tar -C backend -czvf artifact.tar.gz .
             ls -l

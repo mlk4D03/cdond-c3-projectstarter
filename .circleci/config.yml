@@ -454,7 +454,7 @@ jobs:
       - run:
           name: Remove old stacks and files
           command: |
-            oldId=cat config.txt
+            oldId=cat OldWorkflowID.txt
             echo OldWorkflowID: "${oldId}"
             if [[ "${CIRCLE_WORKFLOW_ID:0:7}" != "${oldId}" ]]
             then
